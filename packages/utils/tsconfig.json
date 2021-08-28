@@ -1,0 +1,27 @@
+{
+  // @see https://typescripttolua.github.io/docs/configuration
+  "$schema": "https://raw.githubusercontent.com/TypeScriptToLua/vscode-typescript-to-lua/master/tsconfig-schema.json",
+  "extends": "../../tsconfig-common.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "declaration": true,
+    "outDir": "dist",
+    "types": ["lua-types/jit", "typescript-to-lua/language-extensions", "@zaza/types"]
+  },
+  "include": ["./"],
+  "tstl": {
+    "buildMode": "library",
+    // @see https://github.com/neovim/neovim/blob/4c499899b2c3b31d57c1911c522683bdb2e32a0a/runtime/doc/lua.txt#L257
+    "luaTarget": "JIT",
+    "noImplicitSelf": true,
+    "sourceMapTraceback": false,
+    "tstlVerbose": true,
+    "noResolvePaths": [
+      "packer.util",
+      "nvim-treesitter.configs",
+      "surround",
+      "lspconfig",
+      "packer"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "@zaza/scripts",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "backtolife <floatshuyin@gmail.com>",
+  "homepage": "https://github.com/backtolife2021/zaza#readme",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "type": "module",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backtolife2021/zaza.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "create:script": "esmo ./src/create_script.ts # https://github.com/TypeStrong/ts-node/issues/1007",
+    "generate:types": "esmo ./src/generate_neovim_types.ts",
+    "generate:options": "esmo ./src/generate_packer_options_types.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/backtolife2021/zaza/issues"
+  },
+  "devDependencies": {
+    "@types/luaparse": "^0.2.8",
+    "@types/node": "^16.11.7",
+    "get-stream": "^6.0.1",
+    "luaparse": "^0.3.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4",
+    "zx": "^4.2.0"
+  },
+  "dependencies": {
+    "@msgpack/msgpack": "^2.7.1",
+    "immer": "^9.0.7",
+    "is-valid-var-name": "^1.0.2",
+    "neovim": "^4.10.0"
+  }
+}

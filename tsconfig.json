@@ -1,0 +1,42 @@
+{
+  // @see https://typescripttolua.github.io/docs/configuration
+  "$schema": "https://raw.githubusercontent.com/TypeScriptToLua/vscode-typescript-to-lua/master/tsconfig-schema.json",
+  "extends": "./tsconfig-common.json",
+  "compilerOptions": {
+    "checkJs": true,
+    "outDir": "./lua",
+    // @see  https://github.com/TypeScriptToLua/lua-types#installation
+    // @see https://typescripttolua.github.io/docs/advanced/language-extensions
+    "types": ["lua-types/jit", "typescript-to-lua/language-extensions", "@zaza/types"],
+    "typeRoots": ["./types", "./node_modules/@types"]
+  },
+  "exclude": ["packages"],
+  "tstl": {
+    // @see https://github.com/neovim/neovim/blob/4c499899b2c3b31d57c1911c522683bdb2e32a0a/runtime/doc/lua.txt#L257
+    "luaTarget": "JIT",
+    "noImplicitSelf": true,
+    "sourceMapTraceback": false,
+    "buildMode": "default",
+    "tstlVerbose": true,
+    "noResolvePaths": [
+      "packages.core.dist.index",
+      "mappings",
+      "lspconfig",
+      "luasnip",
+      "luasnip/loaders/from_vscode",
+      "nvim-treesitter.configs",
+      "nvim-lsp-installer",
+      "telescope.previewers",
+      "telescope.sorters",
+      "surround",
+      "packer",
+      "packer.util",
+      "nord",
+      "feline",
+      "feline.providers.lsp",
+      "feline.providers.vi_mode",
+      "FTerm",
+      "indent_blankline"
+    ]
+  }
+}

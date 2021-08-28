@@ -1,0 +1,1463 @@
+{
+  "add_workspace_folder": {
+    "annotations": [],
+    "signature": "add_workspace_folder({workspace_folder})",
+    "parameters": [["", "workspace_folder"]],
+    "parameters_doc": {},
+    "doc": [
+      "Add the folder at path to the workspace folders. If {path} is\nnot provided, the user will be prompted for a path using\n|input()|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "apply_text_document_edit": {
+    "annotations": [],
+    "signature": "apply_text_document_edit({text_document_edit}, {index}, {offset_encoding})",
+    "parameters": [
+      ["", "text_document_edit"],
+      ["", "index"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "text_document_edit": "table: a `TextDocumentEdit` object",
+      "index": "number: Optional index of the edit,\n                          if from a list of edits (or nil, if\n                          not from a list)"
+    },
+    "doc": [
+      "Applies a `TextDocumentEdit`, which is a list of changes to a\nsingle document."
+    ],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocumentEdit"
+    ]
+  },
+  "apply_text_edits": {
+    "annotations": [],
+    "signature": "apply_text_edits({text_edits}, {bufnr}, {offset_encoding})",
+    "parameters": [
+      ["", "text_edits"],
+      ["", "bufnr"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "text_edits": "(table) list of `TextEdit` objects",
+      "bufnr": "(number) Buffer id",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32"
+    },
+    "doc": ["Applies a list of text edits to a buffer."],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textEdit"
+    ]
+  },
+  "apply_workspace_edit": {
+    "annotations": [],
+    "signature": "apply_workspace_edit({workspace_edit}, {offset_encoding})",
+    "parameters": [
+      ["", "workspace_edit"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "workspace_edit": "(table) `WorkspaceEdit`",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32 (required)"
+    },
+    "doc": ["Applies a `WorkspaceEdit`."],
+    "return": [],
+    "seealso": []
+  },
+  "buf_attach_client": {
+    "annotations": [],
+    "signature": "buf_attach_client({bufnr}, {client_id})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "client_id"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer handle, or 0 for current",
+      "client_id": "(number) Client id"
+    },
+    "doc": [
+      "Implements the `textDocument/did…` notifications required to\ntrack a buffer for any language server.",
+      "Without calling this, the server won't be notified of changes\nto a buffer."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "buf_clear_references": {
+    "annotations": [],
+    "signature": "buf_clear_references({bufnr})",
+    "parameters": [["", "bufnr"]],
+    "parameters_doc": { "bufnr": "(number) Buffer id" },
+    "doc": ["Removes document highlights from a buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "buf_detach_client": {
+    "annotations": [],
+    "signature": "buf_detach_client({bufnr}, {client_id})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "client_id"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer handle, or 0 for current",
+      "client_id": "(number) Client id"
+    },
+    "doc": [
+      "Detaches client from the specified buffer. Note: While the\nserver is notified that the text document (buffer) was closed,\nit is still able to send notifications should it ignore this\nnotification."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "buf_highlight_references": {
+    "annotations": [],
+    "signature": "buf_highlight_references({bufnr}, {references}, {offset_encoding})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "references"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer id",
+      "references": "(table) List of `DocumentHighlight`\n                       objects to highlight",
+      "offset_encoding": "(string) One of \"utf-8\", \"utf-16\",\n                       \"utf-32\"."
+    },
+    "doc": ["Shows a list of document highlights for a certain buffer."],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-3-17/#documentHighlight"
+    ]
+  },
+  "buf_is_attached": {
+    "annotations": [],
+    "signature": "buf_is_attached({bufnr}, {client_id})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "client_id"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer handle, or 0 for current",
+      "client_id": "(number) the client id"
+    },
+    "doc": ["Checks if a buffer is attached for a particular client."],
+    "return": [],
+    "seealso": []
+  },
+  "buf_notify": {
+    "annotations": [],
+    "signature": "buf_notify({bufnr}, {method}, {params})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "method"],
+      ["", "params"]
+    ],
+    "parameters_doc": {
+      "bufnr": "[number] (optional): The number of the buffer",
+      "method": "[string]: Name of the request method",
+      "params": "[string]: Arguments to send to the server"
+    },
+    "doc": ["Send a notification to a server"],
+    "return": ["true if any client returns true; false otherwise"],
+    "seealso": []
+  },
+  "buf_request": {
+    "annotations": [],
+    "signature": "buf_request({bufnr}, {method}, {params}, {handler})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "method"],
+      ["", "params"],
+      ["", "handler"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer handle, or 0 for current.",
+      "method": "(string) LSP method name",
+      "params": "(optional, table) Parameters to send to the\n               server",
+      "handler": "(optional, function) See |lsp-handler| If nil,\n               follows resolution strategy defined in\n               |lsp-handler-configuration|"
+    },
+    "doc": ["Sends an async request for all active clients attached to the\nbuffer."],
+    "return": [
+      "2-tuple:\n    • Map of client-id:request-id pairs for all successful\n      requests.\n    • Function which can be used to cancel all the requests.\n      You could instead iterate all clients and call their\n      `cancel_request()` methods.\n"
+    ],
+    "seealso": []
+  },
+  "buf_request_all": {
+    "annotations": [],
+    "signature": "buf_request_all({bufnr}, {method}, {params}, {callback})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "method"],
+      ["", "params"],
+      ["", "callback"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer handle, or 0 for current.",
+      "method": "(string) LSP method name",
+      "params": "(optional, table) Parameters to send to the\n                server",
+      "callback": "(function) The callback to call when all\n                requests are finished."
+    },
+    "doc": [
+      "Sends an async request for all active clients attached to the\nbuffer. Executes the callback on the combined result.\nParameters are the same as |vim.lsp.buf_request()| but the\nreturn result and callback are different."
+    ],
+    "return": [
+      "(function) A function that will cancel all requests which\n    is the same as the one returned from `buf_request`."
+    ],
+    "seealso": []
+  },
+  "buf_request_sync": {
+    "annotations": [],
+    "signature": "buf_request_sync({bufnr}, {method}, {params}, {timeout_ms})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "method"],
+      ["", "params"],
+      ["", "timeout_ms"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer handle, or 0 for current.",
+      "method": "(string) LSP method name",
+      "params": "(optional, table) Parameters to send to the\n                  server",
+      "timeout_ms": "(optional, number, default=1000) Maximum\n                  time in milliseconds to wait for a result."
+    },
+    "doc": [
+      "Sends a request to all server and waits for the response of\nall of them.",
+      "Calls |vim.lsp.buf_request_all()| but blocks Nvim while\nawaiting the result. Parameters are the same as\n|vim.lsp.buf_request()| but the return result is different.\nWait maximum of {timeout_ms} (default 1000) ms."
+    ],
+    "return": [
+      "Map of client_id:request_result. On timeout, cancel or\n    error, returns `(nil, err)` where `err` is a string\n    describing the failure reason."
+    ],
+    "seealso": []
+  },
+  "character_offset": {
+    "annotations": [],
+    "signature": "character_offset({buf}, {row}, {col}, {offset_encoding})",
+    "parameters": [
+      ["", "buf"],
+      ["", "row"],
+      ["", "col"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "buf": "buffer id (0 for current)",
+      "row": "0-indexed line",
+      "col": "0-indexed byte offset in line",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32|nil\n                       defaults to `offset_encoding` of first\n                       client of `buf`"
+    },
+    "doc": ["Returns the UTF-32 and UTF-16 offsets for a position in a\ncertain buffer."],
+    "return": [
+      "(number, number) `offset_encoding` index of the character\n    in line {row} column {col} in buffer {buf}"
+    ],
+    "seealso": []
+  },
+  "clear_references": {
+    "annotations": [],
+    "signature": "clear_references()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Removes document highlights from current buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "client": {
+    "annotations": [],
+    "signature": "client()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "LSP client object. You can get an active client object via\n|vim.lsp.get_client_by_id()| or\n|vim.lsp.get_active_clients()|.",
+      "\n• Methods:\n  • request(method, params, [handler], bufnr) Sends a request\n    to the server. This is a thin wrapper around\n    {client.rpc.request} with some additional checking. If\n    {handler} is not specified, If one is not found there,\n    then an error will occur. Returns: {status},\n    {[client_id]}. {status} is a boolean indicating if the\n    notification was successful. If it is `false`, then it\n    will always be `false` (the client has shutdown). If\n    {status} is `true`, the function returns {request_id} as\n    the second result. You can use this with\n    `client.cancel_request(request_id)` to cancel the request.\n  • request_sync(method, params, timeout_ms, bufnr) Sends a\n    request to the server and synchronously waits for the\n    response. This is a wrapper around {client.request}\n    Returns: { err=err, result=result }, a dictionary, where\n    `err` and `result` come from the |lsp-handler|. On\n    timeout, cancel or error, returns `(nil, err)` where `err`\n    is a string describing the failure reason. If the request\n    was unsuccessful returns `nil`.\n  • notify(method, params) Sends a notification to an LSP\n    server. Returns: a boolean to indicate if the notification\n    was successful. If it is false, then it will always be\n    false (the client has shutdown).\n  • cancel_request(id) Cancels a request with a given request\n    id. Returns: same as `notify()`.\n  • stop([force]) Stops a client, optionally with force. By\n    default, it will just ask the server to shutdown without\n    force. If you request to stop a client which has\n    previously been requested to shutdown, it will\n    automatically escalate and force shutdown.\n  • is_stopped() Checks whether a client is stopped. Returns:\n    true if the client is fully stopped.\n  • on_attach(client, bufnr) Runs the on_attach function from\n    the client's config if it was defined. Useful for\n    buffer-local setup.\n\n• Members\n  • {id} (number): The id allocated to the client.\n  • {name} (string): If a name is specified on creation, that\n    will be used. Otherwise it is just the client id. This is\n    used for logs and messages.\n  • {rpc} (table): RPC client object, for low level\n    interaction with the client. See |vim.lsp.rpc.start()|.\n  • {offset_encoding} (string): The encoding used for\n    communicating with the server. You can modify this in the\n    `config`'s `on_init` method before text is sent to the\n    server.\n  • {handlers} (table): The handlers used by the client as\n    described in |lsp-handler|.\n  • {requests} (table): The current pending requests in flight\n    to the server. Entries are key-value pairs with the key\n    being the request ID while the value is a table with\n    `type`, `bufnr`, and `method` key-value pairs. `type` is\n    either \"pending\" for an active request, or \"cancel\" for a\n    cancel request.\n  • {config} (table): copy of the table that was passed by the\n    user to |vim.lsp.start_client()|.\n  • {server_capabilities} (table): Response from the server\n    sent on `initialize` describing the server's capabilities.\n\n"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "client_is_stopped": {
+    "annotations": [],
+    "signature": "client_is_stopped({client_id})",
+    "parameters": [["", "client_id"]],
+    "parameters_doc": { "client_id": "(Number)" },
+    "doc": ["Checks whether a client is stopped."],
+    "return": ["true if client is stopped, false otherwise."],
+    "seealso": []
+  },
+  "code_action": {
+    "annotations": [],
+    "signature": "code_action({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "(table|nil) Optional table which holds the\n               following optional fields:\n               • context (table|nil): Corresponds to `CodeActionContext` of the LSP specification:\n                 • diagnostics (table|nil): LSP`Diagnostic[]` . Inferred from the current position if not\n                   provided.\n                 • only (table|nil): List of LSP\n                   `CodeActionKind`s used to filter the code\n                   actions. Most language servers support\n                   values like `refactor` or `quickfix`.\n\n               • filter (function|nil): Predicate function\n                 taking an `CodeAction` and returning a\n                 boolean.\n               • apply (boolean|nil): When set to `true`, and\n                 there is just one remaining action (after\n                 filtering), the action is applied without\n                 user query."
+    },
+    "doc": ["Selects a code action available at the current cursor\nposition."],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_codeAction"
+    ]
+  },
+  "completion": {
+    "annotations": [],
+    "signature": "completion({context})",
+    "parameters": [["", "context"]],
+    "parameters_doc": {
+      "context": "(context support not yet implemented)\n               Additional information about the context in\n               which a completion was triggered (how it was\n               triggered, and by which trigger character, if\n               applicable)"
+    },
+    "doc": [
+      "Retrieves the completion items at the current cursor position.\nCan only be called in Insert mode."
+    ],
+    "return": [],
+    "seealso": ["|vim.lsp.protocol.constants.CompletionTriggerKind|"]
+  },
+  "compute_diff": {
+    "annotations": [],
+    "signature": "compute_diff({prev_lines}, {curr_lines}, {firstline}, {lastline}, {new_lastline}, {offset_encoding}, {line_ending})",
+    "parameters": [
+      ["", "prev_lines"],
+      ["", "curr_lines"],
+      ["", "firstline"],
+      ["", "lastline"],
+      ["", "new_lastline"],
+      ["", "offset_encoding"],
+      ["", "line_ending"]
+    ],
+    "parameters_doc": {
+      "prev_lines": "(table) list of lines",
+      "curr_lines": "(table) list of lines",
+      "firstline": "(number) line to begin search for first\n                       difference",
+      "lastline": "(number) line to begin search in\n                       old_lines for last difference",
+      "new_lastline": "(number) line to begin search in\n                       new_lines for last difference",
+      "offset_encoding": "(string) encoding requested by language\n                       server"
+    },
+    "doc": ["Returns the range table for the difference between prev and\ncurr lines"],
+    "return": [
+      "(table) TextDocumentContentChangeEvent see https://microsoft.github.io/language-server-protocol/specifications/specification-3-17/#textDocumentContentChangeEvent"
+    ],
+    "seealso": []
+  },
+  "convert_input_to_markdown_lines": {
+    "annotations": [],
+    "signature": "convert_input_to_markdown_lines({input}, {contents})",
+    "parameters": [
+      ["", "input"],
+      ["", "contents"]
+    ],
+    "parameters_doc": {
+      "input": "(`MarkedString` | `MarkedString[]` |\n                `MarkupContent`)",
+      "contents": "(table, optional, default `{}`) List of\n                strings to extend with converted lines"
+    },
+    "doc": [
+      "Converts any of `MarkedString` | `MarkedString[]` |\n`MarkupContent` into a list of lines containing valid\nmarkdown. Useful to populate the hover window for\n`textDocument/hover`, for parsing the result of\n`textDocument/signatureHelp`, and potentially others."
+    ],
+    "return": ["{contents}, extended with lines of converted markdown."],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_hover"
+    ]
+  },
+  "convert_signature_help_to_markdown_lines": {
+    "annotations": [],
+    "signature": "convert_signature_help_to_markdown_lines({signature_help}, {ft}, {triggers})",
+    "parameters": [
+      ["", "signature_help"],
+      ["", "ft"],
+      ["", "triggers"]
+    ],
+    "parameters_doc": {
+      "signature_help": "Response of `textDocument/SignatureHelp`",
+      "ft": "optional filetype that will be use as\n                      the `lang` for the label markdown code\n                      block",
+      "triggers": "optional list of trigger characters from\n                      the lsp server. used to better determine\n                      parameter offsets"
+    },
+    "doc": ["Converts `textDocument/SignatureHelp` response to markdown\nlines."],
+    "return": ["list of lines of converted markdown."],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_signatureHelp"
+    ]
+  },
+  "declaration": {
+    "annotations": [],
+    "signature": "declaration({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "(table|nil) additional options\n               • reuse_win: (boolean) Jump to existing window\n                 if buffer is already open."
+    },
+    "doc": [
+      "Jumps to the declaration of the symbol under the cursor.\nNote:\n    Many servers do not implement this method. Generally, see\n    |vim.lsp.buf.definition()| instead.\n"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "definition": {
+    "annotations": [],
+    "signature": "definition({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "(table|nil) additional options\n               • reuse_win: (boolean) Jump to existing window\n                 if buffer is already open."
+    },
+    "doc": ["Jumps to the definition of the symbol under the cursor."],
+    "return": [],
+    "seealso": []
+  },
+  "display": {
+    "annotations": [],
+    "signature": "display({lenses}, {bufnr}, {client_id})",
+    "parameters": [
+      ["", "lenses"],
+      ["", "bufnr"],
+      ["", "client_id"]
+    ],
+    "parameters_doc": {
+      "lenses": "(table) of lenses to display (`CodeLens[] |\n                 null`)",
+      "bufnr": "(number)",
+      "client_id": "(number)"
+    },
+    "doc": ["Display the lenses using virtual text"],
+    "return": [],
+    "seealso": []
+  },
+  "document_highlight": {
+    "annotations": [],
+    "signature": "document_highlight()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Send request to the server to resolve document highlights for\nthe current text document position. This request can be\ntriggered by a key mapping or by events such as `CursorHold`,\ne.g.:",
+      ">\nautocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()\nautocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()\nautocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()\n\n<",
+      "Note: Usage of |vim.lsp.buf.document_highlight()| requires the\nfollowing highlight groups to be defined or you won't be able\nto see the actual highlights. |LspReferenceText|\n|LspReferenceRead| |LspReferenceWrite|"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "document_symbol": {
+    "annotations": [],
+    "signature": "document_symbol()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Lists all symbols in the current buffer in the quickfix\nwindow."],
+    "return": [],
+    "seealso": []
+  },
+  "execute_command": {
+    "annotations": [],
+    "signature": "execute_command({command_params})",
+    "parameters": [["", "command_params"]],
+    "parameters_doc": {
+      "command_params": "(table) A valid `ExecuteCommandParams`\n                      object"
+    },
+    "doc": ["Executes an LSP server command."],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#workspace_executeCommand"
+    ]
+  },
+  "extract_completion_items": {
+    "annotations": [],
+    "signature": "extract_completion_items({result})",
+    "parameters": [["", "result"]],
+    "parameters_doc": {
+      "result": "(table) The result of a\n              `textDocument/completion` request"
+    },
+    "doc": [
+      "Can be used to extract the completion items from a `textDocument/completion` request, which may return one of `CompletionItem[]` , `CompletionList` or null."
+    ],
+    "return": ["(table) List of completion items"],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specification#textDocument_completion"
+    ]
+  },
+  "for_each_buffer_client": {
+    "annotations": [],
+    "signature": "for_each_buffer_client({bufnr}, {fn})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "fn"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer number",
+      "fn": "(function) Function to run on each client\n             attached to buffer {bufnr}. The function takes\n             the client, client ID, and buffer number as\n             arguments. Example: >\n\n               vim.lsp.for_each_buffer_client(0, function(client, client_id, bufnr)\n                 print(vim.inspect(client))\n               end)\n\n<"
+    },
+    "doc": ["Invokes a function for each LSP client attached to a buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "format": {
+    "annotations": [],
+    "signature": "format({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "table|nil Optional table which holds the\n               following optional fields:\n               • formatting_options (table|nil): Can be used\n                 to specify FormattingOptions. Some\n                 unspecified options will be automatically\n                 derived from the current Neovim options."
+    },
+    "doc": [
+      "Formats a buffer using the attached (and optionally filtered)\nlanguage server clients."
+    ],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specification#textDocument_formatting\n    • timeout_ms (integer|nil, default 1000): Time in\n      milliseconds to block for formatting requests. No effect\n      if async=true\n    • bufnr (number|nil): Restrict formatting to the clients\n      attached to the given buffer, defaults to the current\n      buffer (0).\n    • filter (function|nil): Predicate used to filter clients.\n      Receives a client as argument and must return a boolean.\n      Clients matching the predicate are included. Example:    • >\n\n        -- Never request typescript-language-server for formatting\n        vim.lsp.buf.format {\n          filter = function(client) return client.name ~= \"tsserver\" end\n        }\n        \n<\n    • async boolean|nil If true the method won't block.\n      Defaults to false. Editing the buffer while formatting\n      asynchronous can lead to unexpected changes.\n    • id (number|nil): Restrict formatting to the client with\n      ID (client.id) matching this field.\n    • name (string|nil): Restrict formatting to the client\n      with name (client.name) matching this field.\n"
+    ]
+  },
+  "format_rpc_error": {
+    "annotations": [],
+    "signature": "format_rpc_error({err})",
+    "parameters": [["", "err"]],
+    "parameters_doc": { "err": "(table) The error object" },
+    "doc": ["Constructs an error message from an LSP error object."],
+    "return": ["(string) The formatted error message"],
+    "seealso": []
+  },
+  "formatexpr": {
+    "annotations": [],
+    "signature": "formatexpr({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": {
+      "opts": "(table) options for customizing the formatting\n            expression which takes the following optional\n            keys:\n            • timeout_ms (default 500ms). The timeout period\n              for the formatting request."
+    },
+    "doc": [
+      "Provides an interface between the built-in client and a\n`formatexpr` function.",
+      "Currently only supports a single client. This can be set via\n`setlocal formatexpr=v:lua.vim.lsp.formatexpr()` but will\ntypically or in `on_attach` via\n`vim.api.nvim_buf_set_option(bufnr, 'formatexpr',\n'v:lua.vim.lsp.formatexpr(#{timeout_ms:250})')`."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "formatting": {
+    "annotations": [],
+    "signature": "formatting({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "(table|nil) Can be used to specify\n               FormattingOptions. Some unspecified options\n               will be automatically derived from the current\n               Neovim options."
+    },
+    "doc": ["Formats the current buffer."],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specification#textDocument_formatting"
+    ]
+  },
+  "formatting_seq_sync": {
+    "annotations": [],
+    "signature": "formatting_seq_sync({options}, {timeout_ms}, {order})",
+    "parameters": [
+      ["", "options"],
+      ["", "timeout_ms"],
+      ["", "order"]
+    ],
+    "parameters_doc": {
+      "options": "(table|nil) `FormattingOptions` entries",
+      "timeout_ms": "(number|nil) Request timeout",
+      "order": "(table|nil) List of client names. Formatting\n                  is requested from clients in the following\n                  order: first all clients that are not in the\n                  `order` list, then the remaining clients in\n                  the order as they occur in the `order` list."
+    },
+    "doc": [
+      "Formats the current buffer by sequentially requesting\nformatting from attached clients.",
+      "Useful when multiple clients with formatting capability are\nattached.",
+      "Since it's synchronous, can be used for running on save, to\nmake sure buffer is formatted prior to being saved.\n{timeout_ms} is passed on to the |vim.lsp.client| `request_sync` method. Example: >\n\n vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]\n \n<"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "formatting_sync": {
+    "annotations": [],
+    "signature": "formatting_sync({options}, {timeout_ms})",
+    "parameters": [
+      ["", "options"],
+      ["", "timeout_ms"]
+    ],
+    "parameters_doc": {
+      "options": "(table|nil) with valid `FormattingOptions`\n                  entries",
+      "timeout_ms": "(number) Request timeout"
+    },
+    "doc": [
+      "Performs |vim.lsp.buf.formatting()| synchronously.",
+      "Useful for running on save, to make sure buffer is formatted\nprior to being saved. {timeout_ms} is passed on to\n|vim.lsp.buf_request_sync()|. Example:",
+      ">\n\n autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()\n \n<"
+    ],
+    "return": [],
+    "seealso": ["|vim.lsp.buf.formatting_seq_sync|"]
+  },
+  "get": {
+    "annotations": [],
+    "signature": "get({bufnr})",
+    "parameters": [["", "bufnr"]],
+    "parameters_doc": {
+      "bufnr": "(number) Buffer number. 0 can be used for the\n             current buffer."
+    },
+    "doc": ["Return all lenses for the given buffer"],
+    "return": ["(table) (`CodeLens[]`)"],
+    "seealso": []
+  },
+  "get_active_clients": {
+    "annotations": [],
+    "signature": "get_active_clients({filter})",
+    "parameters": [["", "filter"]],
+    "parameters_doc": {
+      "filter": "(table|nil) A table with key-value pairs used to\n              filter the returned clients. The available keys\n              are:\n              • id (number): Only return clients with the\n                given id\n              • bufnr (number): Only return clients attached\n                to this buffer\n              • name (string): Only return clients with the\n                given name"
+    },
+    "doc": ["Get active clients."],
+    "return": ["(table) List of |vim.lsp.client| objects"],
+    "seealso": []
+  },
+  "get_buffers_by_client_id": {
+    "annotations": [],
+    "signature": "get_buffers_by_client_id({client_id})",
+    "parameters": [["", "client_id"]],
+    "parameters_doc": { "client_id": "(number) client id" },
+    "doc": ["Returns list of buffers attached to client_id."],
+    "return": ["list of buffer ids"],
+    "seealso": []
+  },
+  "get_client_by_id": {
+    "annotations": [],
+    "signature": "get_client_by_id({client_id})",
+    "parameters": [["", "client_id"]],
+    "parameters_doc": { "client_id": "(number) client id" },
+    "doc": [
+      "Gets a client by id, or nil if the id is invalid. The returned\nclient may not yet be fully initialized."
+    ],
+    "return": ["|vim.lsp.client| object, or nil"],
+    "seealso": []
+  },
+  "get_effective_tabstop": {
+    "annotations": [],
+    "signature": "get_effective_tabstop({bufnr})",
+    "parameters": [["", "bufnr"]],
+    "parameters_doc": { "bufnr": "(number|nil): Buffer handle, defaults to current" },
+    "doc": ["Returns indentation size."],
+    "return": ["(number) indentation size"],
+    "seealso": ["|shiftwidth|"]
+  },
+  "get_filename": {
+    "annotations": [],
+    "signature": "get_filename()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Returns the log filename."],
+    "return": ["(string) log filename"],
+    "seealso": []
+  },
+  "get_level": {
+    "annotations": [],
+    "signature": "get_level()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Gets the current log level."],
+    "return": ["(string) current log level"],
+    "seealso": []
+  },
+  "get_log_path": {
+    "annotations": [],
+    "signature": "get_log_path()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Gets the path of the logfile used by the LSP client."],
+    "return": ["(String) Path to logfile."],
+    "seealso": []
+  },
+  "get_namespace": {
+    "annotations": [],
+    "signature": "get_namespace({client_id})",
+    "parameters": [["", "client_id"]],
+    "parameters_doc": { "client_id": "(number) The id of the LSP client" },
+    "doc": [
+      "Get the diagnostic namespace associated with an LSP client\n|vim.diagnostic|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "hover": {
+    "annotations": [],
+    "signature": "hover({_}, {result}, {ctx}, {config})",
+    "parameters": [
+      ["", "_"],
+      ["", "result"],
+      ["", "ctx"],
+      ["", "config"]
+    ],
+    "parameters_doc": {
+      "config": "(table) Configuration table.\n              • border: (default=nil)\n                • Add borders to the floating window\n                • See |nvim_open_win()|"
+    },
+    "doc": [
+      "|lsp-handler| for the method \"textDocument/hover\" >\n\n vim.lsp.handlers[\"textDocument/hover\"] = vim.lsp.with(\n   vim.lsp.handlers.hover, {\n     -- Use a sharp border with `FloatBorder` highlights\n     border = \"single\"\n   }\n )\n \n<"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "implementation": {
+    "annotations": [],
+    "signature": "implementation()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Lists all the implementations for the symbol under the cursor\nin the quickfix window."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "incoming_calls": {
+    "annotations": [],
+    "signature": "incoming_calls()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Lists all the call sites of the symbol under the cursor in the\n|quickfix| window. If the symbol can resolve to multiple\nitems, the user can pick one in the |inputlist|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "jump_to_location": {
+    "annotations": [],
+    "signature": "jump_to_location({location}, {offset_encoding}, {reuse_win})",
+    "parameters": [
+      ["", "location"],
+      ["", "offset_encoding"],
+      ["", "reuse_win"]
+    ],
+    "parameters_doc": {
+      "location": "(table) (`Location`|`LocationLink`)",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32 (required)",
+      "reuse_win": "(boolean) Jump to existing window if\n                       buffer is already opened."
+    },
+    "doc": ["Jumps to a location."],
+    "return": ["`true` if the jump succeeded"],
+    "seealso": []
+  },
+  "list_workspace_folders": {
+    "annotations": [],
+    "signature": "list_workspace_folders()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["List workspace folders."],
+    "return": [],
+    "seealso": []
+  },
+  "locations_to_items": {
+    "annotations": [],
+    "signature": "locations_to_items({locations}, {offset_encoding})",
+    "parameters": [
+      ["", "locations"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "locations": "(table) list of `Location`s or\n                       `LocationLink`s",
+      "offset_encoding": "(string) offset_encoding for locations\n                       utf-8|utf-16|utf-32"
+    },
+    "doc": [
+      "Returns the items with the byte position calculated correctly\nand in sorted order, for display in quickfix and location\nlists.",
+      "The result can be passed to the {list} argument of\n|setqflist()| or |setloclist()|."
+    ],
+    "return": ["(table) list of items"],
+    "seealso": []
+  },
+  "lookup_section": {
+    "annotations": [],
+    "signature": "lookup_section({settings}, {section})",
+    "parameters": [
+      ["", "settings"],
+      ["", "section"]
+    ],
+    "parameters_doc": {
+      "settings": "a table of language server settings",
+      "section": "a string indicating the field of the settings\n                table"
+    },
+    "doc": ["Helper function to return nested values in language server\nsettings"],
+    "return": ["(table or string) The value of settings accessed via\n    section"],
+    "seealso": []
+  },
+  "make_client_capabilities": {
+    "annotations": [],
+    "signature": "make_client_capabilities()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Gets a new ClientCapabilities object describing the LSP client\ncapabilities."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "make_floating_popup_options": {
+    "annotations": [],
+    "signature": "make_floating_popup_options({width}, {height}, {opts})",
+    "parameters": [
+      ["", "width"],
+      ["", "height"],
+      ["", "opts"]
+    ],
+    "parameters_doc": {
+      "width": "(number) window width (in character cells)",
+      "height": "(number) window height (in character cells)",
+      "opts": "(table, optional)\n              • offset_x (number) offset to add to `col`\n              • offset_y (number) offset to add to `row`\n              • border (string or table) override `border`\n              • focusable (string or table) override\n                `focusable`\n              • zindex (string or table) override `zindex`,\n                defaults to 50"
+    },
+    "doc": [
+      "Creates a table with sensible default options for a floating\nwindow. The table can be passed to |nvim_open_win()|."
+    ],
+    "return": ["(table) Options"],
+    "seealso": []
+  },
+  "make_formatting_params": {
+    "annotations": [],
+    "signature": "make_formatting_params({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "(table|nil) with valid `FormattingOptions`\n               entries"
+    },
+    "doc": [
+      "Creates a `DocumentFormattingParams` object for the current\nbuffer and cursor position."
+    ],
+    "return": ["`DocumentFormattingParams` object"],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_formatting"
+    ]
+  },
+  "make_given_range_params": {
+    "annotations": [],
+    "signature": "make_given_range_params({start_pos}, {end_pos}, {bufnr}, {offset_encoding})",
+    "parameters": [
+      ["", "start_pos"],
+      ["", "end_pos"],
+      ["", "bufnr"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "start_pos": "({number, number}, optional)\n                       mark-indexed position. Defaults to the\n                       start of the last visual selection.",
+      "end_pos": "({number, number}, optional)\n                       mark-indexed position. Defaults to the\n                       end of the last visual selection.",
+      "bufnr": "(optional, number): buffer handle or 0\n                       for current, defaults to current",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32|nil\n                       defaults to `offset_encoding` of first\n                       client of `bufnr`"
+    },
+    "doc": [
+      "Using the given range in the current buffer, creates an object\nthat is similar to |vim.lsp.util.make_range_params()|."
+    ],
+    "return": [
+      "{ textDocument = { uri = `current_file_uri` }, range = {\n    start = `start_position`, end = `end_position` } }"
+    ],
+    "seealso": []
+  },
+  "make_position_params": {
+    "annotations": [],
+    "signature": "make_position_params({window}, {offset_encoding})",
+    "parameters": [
+      ["", "window"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "window": "(optional, number): window handle or 0\n                       for current, defaults to current",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32|nil\n                       defaults to `offset_encoding` of first\n                       client of buffer of `window`"
+    },
+    "doc": [
+      "Creates a `TextDocumentPositionParams` object for the current\nbuffer and cursor position."
+    ],
+    "return": ["`TextDocumentPositionParams` object"],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocumentPositionParams"
+    ]
+  },
+  "make_range_params": {
+    "annotations": [],
+    "signature": "make_range_params({window}, {offset_encoding})",
+    "parameters": [
+      ["", "window"],
+      ["", "offset_encoding"]
+    ],
+    "parameters_doc": {
+      "window": "(optional, number): window handle or 0\n                       for current, defaults to current",
+      "offset_encoding": "(string) utf-8|utf-16|utf-32|nil\n                       defaults to `offset_encoding` of first\n                       client of buffer of `window`"
+    },
+    "doc": [
+      "Using the current position in the current buffer, creates an\nobject that can be used as a building block for several LSP\nrequests, such as `textDocument/codeAction`,\n`textDocument/colorPresentation`,\n`textDocument/rangeFormatting`."
+    ],
+    "return": [
+      "{ textDocument = { uri = `current_file_uri` }, range = {\n    start = `current_position`, end = `current_position` } }"
+    ],
+    "seealso": []
+  },
+  "make_text_document_params": {
+    "annotations": [],
+    "signature": "make_text_document_params({bufnr})",
+    "parameters": [["", "bufnr"]],
+    "parameters_doc": {
+      "bufnr": "(optional, number): Buffer handle, defaults to\n             current"
+    },
+    "doc": ["Creates a `TextDocumentIdentifier` object for the current\nbuffer."],
+    "return": ["`TextDocumentIdentifier`"],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocumentIdentifier"
+    ]
+  },
+  "make_workspace_params": {
+    "annotations": [],
+    "signature": "make_workspace_params({added}, {removed})",
+    "parameters": [
+      ["", "added"],
+      ["", "removed"]
+    ],
+    "parameters_doc": { "added": "", "removed": "" },
+    "doc": ["Create the workspace params"],
+    "return": [],
+    "seealso": []
+  },
+  "notify": {
+    "annotations": [],
+    "signature": "notify({method}, {params})",
+    "parameters": [
+      ["", "method"],
+      ["", "params"]
+    ],
+    "parameters_doc": {
+      "method": "(string) The invoked LSP method",
+      "params": "(table): Parameters for the invoked LSP method"
+    },
+    "doc": ["Sends a notification to the LSP server."],
+    "return": ["(bool) `true` if notification could be sent, `false` if\n    not"],
+    "seealso": []
+  },
+  "omnifunc": {
+    "annotations": [],
+    "signature": "omnifunc({findstart}, {base})",
+    "parameters": [
+      ["", "findstart"],
+      ["", "base"]
+    ],
+    "parameters_doc": {
+      "findstart": "0 or 1, decides behavior",
+      "base": "If findstart=0, text to match against"
+    },
+    "doc": ["Implements 'omnifunc' compatible LSP completion."],
+    "return": [
+      "(number) Decided by {findstart}:\n    • findstart=0: column where the completion starts, or -2\n      or -3\n    • findstart=1: list of matches (actually just calls\n      |complete()|)\n"
+    ],
+    "seealso": ["|complete-functions|", "|complete-items|", "|CompleteDone|"]
+  },
+  "on_codelens": {
+    "annotations": [],
+    "signature": "on_codelens({err}, {result}, {ctx}, {_})",
+    "parameters": [
+      ["", "err"],
+      ["", "result"],
+      ["", "ctx"],
+      ["", "_"]
+    ],
+    "parameters_doc": {},
+    "doc": ["|lsp-handler| for the method `textDocument/codeLens`"],
+    "return": [],
+    "seealso": []
+  },
+  "on_publish_diagnostics": {
+    "annotations": [],
+    "signature": "on_publish_diagnostics({_}, {result}, {ctx}, {config})",
+    "parameters": [
+      ["", "_"],
+      ["", "result"],
+      ["", "ctx"],
+      ["", "config"]
+    ],
+    "parameters_doc": {
+      "config": "(table) Configuration table (see\n              |vim.diagnostic.config()|)."
+    },
+    "doc": [
+      "|lsp-handler| for the method \"textDocument/publishDiagnostics\"",
+      "See |vim.diagnostic.config()| for configuration options.\nHandler-specific configuration can be set using\n|vim.lsp.with()|: >\n\n vim.lsp.handlers[\"textDocument/publishDiagnostics\"] = vim.lsp.with(\n   vim.lsp.diagnostic.on_publish_diagnostics, {\n     -- Enable underline, use default values\n     underline = true,\n     -- Enable virtual text, override spacing to 4\n     virtual_text = {\n       spacing = 4,\n     },\n     -- Use a function to dynamically turn signs off\n     -- and on, using buffer local variables\n     signs = function(namespace, bufnr)\n       return vim.b[bufnr].show_signs == true\n     end,\n     -- Disable a feature\n     update_in_insert = false,\n   }\n )\n \n<"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "open_floating_preview": {
+    "annotations": [],
+    "signature": "open_floating_preview({contents}, {syntax}, {opts})",
+    "parameters": [
+      ["", "contents"],
+      ["", "syntax"],
+      ["", "opts"]
+    ],
+    "parameters_doc": {
+      "contents": "(table) of lines to show in window",
+      "syntax": "(string) of syntax to set for opened buffer",
+      "opts": "(table) with optional fields (additional keys\n                are passed on to |vim.api.nvim_open_win()|)\n                • height: (number) height of floating window\n                • width: (number) width of floating window\n                • wrap: (boolean, default true) wrap long\n                  lines\n                • wrap_at: (number) character to wrap at for\n                  computing height when wrap is enabled\n                • max_width: (number) maximal width of\n                  floating window\n                • max_height: (number) maximal height of\n                  floating window\n                • pad_top: (number) number of lines to pad\n                  contents at top\n                • pad_bottom: (number) number of lines to pad\n                  contents at bottom\n                • focus_id: (string) if a popup with this id\n                  is opened, then focus it\n                • close_events: (table) list of events that\n                  closes the floating window\n                • focusable: (boolean, default true) Make\n                  float focusable\n                • focus: (boolean, default true) If `true`,\n                  and if {focusable} is also `true`, focus an\n                  existing floating window with the same\n                  {focus_id}"
+    },
+    "doc": ["Shows contents in a floating window."],
+    "return": [
+      "bufnr,winnr buffer and window number of the newly created\n    floating preview window"
+    ],
+    "seealso": []
+  },
+  "outgoing_calls": {
+    "annotations": [],
+    "signature": "outgoing_calls()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Lists all the items that are called by the symbol under the\ncursor in the |quickfix| window. If the symbol can resolve to\nmultiple items, the user can pick one in the |inputlist|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "parse_snippet": {
+    "annotations": [],
+    "signature": "parse_snippet({input})",
+    "parameters": [["", "input"]],
+    "parameters_doc": { "input": "(string) unparsed snippet" },
+    "doc": ["Parses snippets in a completion entry."],
+    "return": ["(string) parsed snippet"],
+    "seealso": []
+  },
+  "preview_location": {
+    "annotations": [],
+    "signature": "preview_location({location}, {opts})",
+    "parameters": [
+      ["", "location"],
+      ["", "opts"]
+    ],
+    "parameters_doc": { "location": "a single `Location` or `LocationLink`" },
+    "doc": [
+      "Previews a location in a floating window",
+      "behavior depends on type of location:\n• for Location, range is shown (e.g., function definition)\n• for LocationLink, targetRange is shown (e.g., body of\n  function definition)\n"
+    ],
+    "return": ["(bufnr,winnr) buffer and window number of floating window\n    or nil"],
+    "seealso": []
+  },
+  "range_code_action": {
+    "annotations": [],
+    "signature": "range_code_action({context}, {start_pos}, {end_pos})",
+    "parameters": [
+      ["", "context"],
+      ["", "start_pos"],
+      ["", "end_pos"]
+    ],
+    "parameters_doc": {
+      "context": "(table|nil) `CodeActionContext` of the LSP specification:\n                 • diagnostics: (table|nil) LSP`Diagnostic[]` . Inferred from the current position if not\n                   provided.\n                 • only: (table|nil) List of LSP\n                   `CodeActionKind`s used to filter the code\n                   actions. Most language servers support\n                   values like `refactor` or `quickfix`.",
+      "start_pos": "({number, number}, optional) mark-indexed\n                 position. Defaults to the start of the last\n                 visual selection.",
+      "end_pos": "({number, number}, optional) mark-indexed\n                 position. Defaults to the end of the last\n                 visual selection."
+    },
+    "doc": ["Performs |vim.lsp.buf.code_action()| for a given range."],
+    "return": [],
+    "seealso": []
+  },
+  "range_formatting": {
+    "annotations": [],
+    "signature": "range_formatting({options}, {start_pos}, {end_pos})",
+    "parameters": [
+      ["", "options"],
+      ["", "start_pos"],
+      ["", "end_pos"]
+    ],
+    "parameters_doc": {
+      "options": "Table with valid `FormattingOptions` entries.",
+      "start_pos": "({number, number}, optional) mark-indexed\n                 position. Defaults to the start of the last\n                 visual selection.",
+      "end_pos": "({number, number}, optional) mark-indexed\n                 position. Defaults to the end of the last\n                 visual selection."
+    },
+    "doc": ["Formats a given range."],
+    "return": [],
+    "seealso": []
+  },
+  "references": {
+    "annotations": [],
+    "signature": "references({context})",
+    "parameters": [["", "context"]],
+    "parameters_doc": { "context": "(table) Context for the request" },
+    "doc": [
+      "Lists all the references to the symbol under the cursor in the\nquickfix window."
+    ],
+    "return": [],
+    "seealso": [
+      "https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_references"
+    ]
+  },
+  "refresh": {
+    "annotations": [],
+    "signature": "refresh()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Refresh the codelens for the current buffer",
+      "It is recommended to trigger this using an autocmd or via\nkeymap.",
+      ">\n  autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()\n\n<"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "remove_workspace_folder": {
+    "annotations": [],
+    "signature": "remove_workspace_folder({workspace_folder})",
+    "parameters": [["", "workspace_folder"]],
+    "parameters_doc": {},
+    "doc": [
+      "Remove the folder at path from the workspace folders. If\n{path} is not provided, the user will be prompted for a path\nusing |input()|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "rename": {
+    "annotations": [],
+    "signature": "rename({old_fname}, {new_fname}, {opts})",
+    "parameters": [
+      ["", "old_fname"],
+      ["", "new_fname"],
+      ["", "opts"]
+    ],
+    "parameters_doc": { "opts": "(table)" },
+    "doc": ["Rename old_fname to new_fname"],
+    "return": [],
+    "seealso": []
+  },
+  "request": {
+    "annotations": [],
+    "signature": "request({method}, {params}, {callback}, {notify_reply_callback})",
+    "parameters": [
+      ["", "method"],
+      ["", "params"],
+      ["", "callback"],
+      ["", "notify_reply_callback"]
+    ],
+    "parameters_doc": {
+      "method": "(string) The invoked LSP method",
+      "params": "(table) Parameters for the\n                             invoked LSP method",
+      "callback": "(function) Callback to invoke",
+      "notify_reply_callback": "(function|nil) Callback to invoke\n                             as soon as a request is no longer\n                             pending"
+    },
+    "doc": ["Sends a request to the LSP server and runs {callback} upon\nresponse."],
+    "return": [
+      "(bool, number) `(true, message_id)` if request could be\n    sent, `false` if not"
+    ],
+    "seealso": []
+  },
+  "resolve_capabilities": {
+    "annotations": [],
+    "signature": "resolve_capabilities({server_capabilities})",
+    "parameters": [["", "server_capabilities"]],
+    "parameters_doc": {
+      "server_capabilities": "(table) Table of capabilities\n                           supported by the server"
+    },
+    "doc": ["Creates a normalized object describing LSP server\ncapabilities."],
+    "return": ["(table) Normalized table of capabilities"],
+    "seealso": []
+  },
+  "rpc_response_error": {
+    "annotations": [],
+    "signature": "rpc_response_error({code}, {message}, {data})",
+    "parameters": [
+      ["", "code"],
+      ["", "message"],
+      ["", "data"]
+    ],
+    "parameters_doc": {
+      "code": "RPC error code defined in\n               `vim.lsp.protocol.ErrorCodes`",
+      "message": "(optional) arbitrary message to send to server",
+      "data": "(optional) arbitrary data to send to server"
+    },
+    "doc": ["Creates an RPC response object/table."],
+    "return": [],
+    "seealso": []
+  },
+  "run": {
+    "annotations": [],
+    "signature": "run()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Run the code lens in the current line"],
+    "return": [],
+    "seealso": []
+  },
+  "save": {
+    "annotations": [],
+    "signature": "save({lenses}, {bufnr}, {client_id})",
+    "parameters": [
+      ["", "lenses"],
+      ["", "bufnr"],
+      ["", "client_id"]
+    ],
+    "parameters_doc": {
+      "lenses": "(table) of lenses to store (`CodeLens[] |\n                 null`)",
+      "bufnr": "(number)",
+      "client_id": "(number)"
+    },
+    "doc": ["Store lenses for a specific buffer and client"],
+    "return": [],
+    "seealso": []
+  },
+  "server_ready": {
+    "annotations": [],
+    "signature": "server_ready()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": [
+      "Checks whether the language servers attached to the current\nbuffer are ready."
+    ],
+    "return": ["`true` if server responds."],
+    "seealso": []
+  },
+  "set_format_func": {
+    "annotations": [],
+    "signature": "set_format_func({handle})",
+    "parameters": [["", "handle"]],
+    "parameters_doc": {
+      "handle": "(function) function to apply to logging\n              arguments, pass vim.inspect for multi-line\n              formatting"
+    },
+    "doc": ["Sets formatting function used to format logs"],
+    "return": [],
+    "seealso": []
+  },
+  "set_level": {
+    "annotations": [],
+    "signature": "set_level({level})",
+    "parameters": [["", "level"]],
+    "parameters_doc": { "level": "(string or number) One of `vim.lsp.log.levels`" },
+    "doc": ["Sets the current log level."],
+    "return": [],
+    "seealso": []
+  },
+  "set_lines": {
+    "annotations": [],
+    "signature": "set_lines({lines}, {A}, {B}, {new_lines})",
+    "parameters": [
+      ["", "lines"],
+      ["", "A"],
+      ["", "B"],
+      ["", "new_lines"]
+    ],
+    "parameters_doc": {
+      "lines": "(table) Original list of strings",
+      "A": "(table) Start position; a 2-tuple of {line,\n                 col} numbers",
+      "B": "(table) End position; a 2-tuple of {line,\n                 col} numbers",
+      "new_lines": "A list of strings to replace the original"
+    },
+    "doc": ["Replaces text in a range with new text.", "CAUTION: Changes in-place!"],
+    "return": ["(table) The modified {lines} object"],
+    "seealso": []
+  },
+  "set_log_level": {
+    "annotations": [],
+    "signature": "set_log_level({level})",
+    "parameters": [["", "level"]],
+    "parameters_doc": {
+      "level": "[number|string] the case insensitive level name\n             or number"
+    },
+    "doc": [
+      "Sets the global log level for LSP logging.",
+      "Levels by name: \"TRACE\", \"DEBUG\", \"INFO\", \"WARN\", \"ERROR\",\n\"OFF\"",
+      "Level numbers begin with \"TRACE\" at 0",
+      "Use `lsp.log_levels` for reverse lookup."
+    ],
+    "return": [],
+    "seealso": ["|vim.lsp.log_levels|"]
+  },
+  "should_log": {
+    "annotations": [],
+    "signature": "should_log({level})",
+    "parameters": [["", "level"]],
+    "parameters_doc": { "level": "(number) log level" },
+    "doc": ["Checks whether the level is sufficient for logging."],
+    "return": ["(bool) true if would log, false if not"],
+    "seealso": []
+  },
+  "signature_help": {
+    "annotations": [],
+    "signature": "signature_help({_}, {result}, {ctx}, {config})",
+    "parameters": [
+      ["", "_"],
+      ["", "result"],
+      ["", "ctx"],
+      ["", "config"]
+    ],
+    "parameters_doc": {
+      "config": "(table) Configuration table.\n              • border: (default=nil)\n                • Add borders to the floating window\n                • See |vim.api.nvim_open_win()|"
+    },
+    "doc": [
+      "|lsp-handler| for the method \"textDocument/signatureHelp\". The\nactive parameter is highlighted with\n|hl-LspSignatureActiveParameter|. >\n\n vim.lsp.handlers[\"textDocument/signatureHelp\"] = vim.lsp.with(\n   vim.lsp.handlers.signature_help, {\n     -- Use a sharp border with `FloatBorder` highlights\n     border = \"single\"\n   }\n )\n \n<"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "start": {
+    "annotations": [],
+    "signature": "start({cmd}, {cmd_args}, {dispatchers}, {extra_spawn_params})",
+    "parameters": [
+      ["", "cmd"],
+      ["", "cmd_args"],
+      ["", "dispatchers"],
+      ["", "extra_spawn_params"]
+    ],
+    "parameters_doc": {
+      "cmd": "(string) Command to start the LSP\n                          server.",
+      "cmd_args": "(table) List of additional string\n                          arguments to pass to {cmd}.",
+      "dispatchers": "(table, optional) Dispatchers for\n                          LSP message types. Valid dispatcher\n                          names are:\n                          • `\"notification\"`\n                          • `\"server_request\"`\n                          • `\"on_error\"`\n                          • `\"on_exit\"`",
+      "extra_spawn_params": "(table, optional) Additional context\n                          for the LSP server process. May\n                          contain:\n                          • {cwd} (string) Working directory\n                            for the LSP server process\n                          • {env} (table) Additional\n                            environment variables for LSP\n                            server process"
+    },
+    "doc": [
+      "Starts an LSP server process and create an LSP RPC client\nobject to interact with it. Communication with the server is\ncurrently limited to stdio."
+    ],
+    "return": [
+      "Client RPC object.",
+      "Methods:\n    • `notify()` |vim.lsp.rpc.notify()|\n    • `request()` |vim.lsp.rpc.request()|\n",
+      "Members:\n    • {pid} (number) The LSP server's PID.\n    • {handle} A handle for low-level interaction with the LSP\n      server process |vim.loop|.\n"
+    ],
+    "seealso": []
+  },
+  "start_client": {
+    "annotations": [],
+    "signature": "start_client({config})",
+    "parameters": [["", "config"]],
+    "parameters_doc": {
+      "cmd": "(required, string or list treated\n                         like |jobstart()|) Base command that\n                         initiates the LSP client.",
+      "cmd_cwd": "(string, default=|getcwd()|)\n                         Directory to launch the `cmd`\n                         process. Not related to `root_dir`.",
+      "cmd_env": "(table) Environment flags to pass to\n                         the LSP on spawn. Can be specified\n                         using keys like a map or as a list\n                         with `k=v` pairs or both. Non-string values are\n                         coerced to string. Example: >\n\n { \"PRODUCTION=true\"; \"TEST=123\"; PORT = 8080; HOST = \"0.0.0.0\"; }\n\n<",
+      "detached": "(boolean, default true) Daemonize the\n                         server process so that it runs in a\n                         separate process group from Nvim.\n                         Nvim will shutdown the process on\n                         exit, but if Nvim fails to exit\n                         cleanly this could leave behind\n                         orphaned server processes.",
+      "workspace_folders": "(table) List of workspace folders\n                         passed to the language server. For\n                         backwards compatibility rootUri and\n                         rootPath will be derived from the\n                         first workspace folder in this list.\n                         See `workspaceFolders` in the LSP\n                         spec.",
+      "capabilities": "Map overriding the default\n                         capabilities defined by\n                         |vim.lsp.protocol.make_client_capabilities()|,\n                         passed to the language server on\n                         initialization. Hint: use\n                         make_client_capabilities() and modify\n                         its result.\n                         • Note: To send an empty dictionary\n                           use\n                           `{[vim.type_idx]=vim.types.dictionary}`,\n                           else it will be encoded as an\n                           array.",
+      "handlers": "Map of language server method names\n                         to |lsp-handler|",
+      "settings": "Map with language server specific\n                         settings. These are returned to the\n                         language server if requested via\n                         `workspace/configuration`. Keys are\n                         case-sensitive.",
+      "commands": "(table) Table that maps string of\n                         clientside commands to user-defined\n                         functions. Commands passed to\n                         start_client take precedence over the\n                         global command registry. Each key\n                         must be a unique command name, and\n                         the value is a function which is\n                         called if any LSP action (code\n                         action, code lenses, ...) triggers\n                         the command.",
+      "init_options": "Values to pass in the initialization\n                         request as `initializationOptions`.\n                         See `initialize` in the LSP spec.",
+      "name": "(string, default=client-id) Name in\n                         log messages.",
+      "get_language_id": "function(bufnr, filetype) -> language\n                         ID as string. Defaults to the\n                         filetype.",
+      "offset_encoding": "(default=\"utf-16\") One of \"utf-8\",\n                         \"utf-16\", or \"utf-32\" which is the\n                         encoding that the LSP server expects.\n                         Client does not verify this is\n                         correct.",
+      "on_error": "Callback with parameters (code, ...),\n                         invoked when the client operation\n                         throws an error. `code` is a number\n                         describing the error. Other arguments\n                         may be passed depending on the error\n                         kind. See |vim.lsp.rpc.client_errors|\n                         for possible errors. Use\n                         `vim.lsp.rpc.client_errors[code]` to\n                         get human-friendly name.",
+      "before_init": "Callback with parameters\n                         (initialize_params, config) invoked\n                         before the LSP \"initialize\" phase,\n                         where `params` contains the\n                         parameters being sent to the server\n                         and `config` is the config that was\n                         passed to |vim.lsp.start_client()|.\n                         You can use this to modify parameters\n                         before they are sent.",
+      "on_init": "Callback (client, initialize_result)\n                         invoked after LSP \"initialize\", where\n                         `result` is a table of `capabilities`\n                         and anything else the server may\n                         send. For example, clangd sends\n                         `initialize_result.offsetEncoding` if\n                         `capabilities.offsetEncoding` was\n                         sent to it. You can only modify the\n                         `client.offset_encoding` here before\n                         any notifications are sent. Most\n                         language servers expect to be sent\n                         client specified settings after\n                         initialization. Neovim does not make\n                         this assumption. A\n                         `workspace/didChangeConfiguration`\n                         notification should be sent to the\n                         server during on_init.",
+      "on_exit": "Callback (code, signal, client_id)\n                         invoked on client exit.\n                         • code: exit code of the process\n                         • signal: number describing the\n                           signal used to terminate (if any)\n                         • client_id: client handle",
+      "on_attach": "Callback (client, bufnr) invoked when\n                         client attaches to a buffer.",
+      "trace": "\"off\" | \"messages\" | \"verbose\" | nil\n                         passed directly to the language\n                         server in the initialize request.\n                         Invalid/empty values will default to\n                         \"off\"",
+      "flags": "A table with flags for the client.\n                         The current (experimental) flags are:\n                         • allow_incremental_sync (bool,\n                           default true): Allow using\n                           incremental sync for buffer edits\n                         • debounce_text_changes (number,\n                           default 150): Debounce didChange\n                           notifications to the server by the\n                           given number in milliseconds. No\n                           debounce occurs if nil\n                         • exit_timeout (number, default 500):\n                           Milliseconds to wait for server to\n                           exit cleanly after sending the\n                           'shutdown' request before sending\n                           kill -15. If set to false, nvim\n                           exits immediately after sending the\n                           'shutdown' request to the server.",
+      "root_dir": "(string) Directory where the LSP\n                         server will base its\n                         workspaceFolders, rootUri, and\n                         rootPath on initialization."
+    },
+    "doc": [
+      "Starts and initializes a client with the given configuration.",
+      "Parameter `cmd` is required.",
+      "The following parameters describe fields in the {config}\ntable."
+    ],
+    "return": [
+      "Client id. |vim.lsp.get_client_by_id()| Note: client may\n    not be fully initialized. Use `on_init` to do any actions\n    once the client has been initialized."
+    ],
+    "seealso": []
+  },
+  "stop_client": {
+    "annotations": [],
+    "signature": "stop_client({client_id}, {force})",
+    "parameters": [
+      ["", "client_id"],
+      ["", "force"]
+    ],
+    "parameters_doc": {
+      "client_id": "client id or |vim.lsp.client| object, or list\n                 thereof",
+      "force": "(boolean) (optional) shutdown forcefully"
+    },
+    "doc": [
+      "Stops a client(s).",
+      "You can also use the `stop()` function on a |vim.lsp.client|\nobject. To stop all clients:",
+      ">\n\n vim.lsp.stop_client(vim.lsp.get_active_clients())\n \n<",
+      "By default asks the server to shutdown, unless stop was\nrequested already for this client, then force-shutdown is\nattempted."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "stylize_markdown": {
+    "annotations": [],
+    "signature": "stylize_markdown({bufnr}, {contents}, {opts})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "contents"],
+      ["", "opts"]
+    ],
+    "parameters_doc": {
+      "contents": "(table) of lines to show in window",
+      "opts": "dictionary with optional fields\n                • height of floating window\n                • width of floating window\n                • wrap_at character to wrap at for computing\n                  height\n                • max_width maximal width of floating window\n                • max_height maximal height of floating window\n                • pad_top number of lines to pad contents at\n                  top\n                • pad_bottom number of lines to pad contents\n                  at bottom\n                • separator insert separator after code block"
+    },
+    "doc": [
+      "Converts markdown into syntax highlighted regions by stripping\nthe code blocks and converting them into highlighted code.\nThis will by default insert a blank line separator after those\ncode block regions to improve readability.",
+      "This method configures the given buffer and returns the lines\nto set.",
+      "If you want to open a popup with fancy markdown, use\n`open_floating_preview` instead"
+    ],
+    "return": ["width,height size of float"],
+    "seealso": []
+  },
+  "symbols_to_items": {
+    "annotations": [],
+    "signature": "symbols_to_items({symbols}, {bufnr})",
+    "parameters": [
+      ["", "symbols"],
+      ["", "bufnr"]
+    ],
+    "parameters_doc": { "symbols": "DocumentSymbol[] or SymbolInformation[]" },
+    "doc": ["Converts symbols to quickfix list items."],
+    "return": [],
+    "seealso": []
+  },
+  "tagfunc": {
+    "annotations": [],
+    "signature": "tagfunc({...})",
+    "parameters": [["", "..."]],
+    "parameters_doc": {
+      "pattern": "Pattern used to find a workspace symbol",
+      "flags": "See |tag-function|"
+    },
+    "doc": [
+      "Provides an interface between the built-in client and\n'tagfunc'.",
+      "When used with normal mode commands (e.g. |CTRL-]|) this will\ninvoke the \"textDocument/definition\" LSP method to find the\ntag under the cursor. Otherwise, uses \"workspace/symbol\". If\nno results are returned from any LSP servers, falls back to\nusing built-in tags."
+    ],
+    "return": ["A list of matching tags"],
+    "seealso": []
+  },
+  "text_document_completion_list_to_complete_items": {
+    "annotations": [],
+    "signature": "text_document_completion_list_to_complete_items({result}, {prefix})",
+    "parameters": [
+      ["", "result"],
+      ["", "prefix"]
+    ],
+    "parameters_doc": {
+      "result": "The result of a `textDocument/completion` call,\n              e.g. from |vim.lsp.buf.completion()|, which may\n              be one of `CompletionItem[]`, `CompletionList`\n              or `null`",
+      "prefix": "(string) the prefix to filter the completion\n              items"
+    },
+    "doc": [
+      "Turns the result of a `textDocument/completion` request into\nvim-compatible |complete-items|."
+    ],
+    "return": ["{ matches = complete-items table, incomplete = bool }"],
+    "seealso": ["|complete-items|"]
+  },
+  "trim_empty_lines": {
+    "annotations": [],
+    "signature": "trim_empty_lines({lines})",
+    "parameters": [["", "lines"]],
+    "parameters_doc": { "lines": "(table) list of lines to trim" },
+    "doc": ["Removes empty lines from the beginning and end."],
+    "return": ["(table) trimmed list of lines"],
+    "seealso": []
+  },
+  "try_trim_markdown_code_blocks": {
+    "annotations": [],
+    "signature": "try_trim_markdown_code_blocks({lines})",
+    "parameters": [["", "lines"]],
+    "parameters_doc": { "lines": "(table) list of lines" },
+    "doc": [
+      "Accepts markdown lines and tries to reduce them to a filetype\nif they comprise just a single code block.",
+      "CAUTION: Modifies the input in-place!"
+    ],
+    "return": ["(string) filetype or 'markdown' if it was unchanged."],
+    "seealso": []
+  },
+  "type_definition": {
+    "annotations": [],
+    "signature": "type_definition({options})",
+    "parameters": [["", "options"]],
+    "parameters_doc": {
+      "options": "(table|nil) additional options\n               • reuse_win: (boolean) Jump to existing window\n                 if buffer is already open."
+    },
+    "doc": ["Jumps to the definition of the type of the symbol under the\ncursor."],
+    "return": [],
+    "seealso": []
+  },
+  "with": {
+    "annotations": [],
+    "signature": "with({handler}, {override_config})",
+    "parameters": [
+      ["", "handler"],
+      ["", "override_config"]
+    ],
+    "parameters_doc": {
+      "handler": "(function) See |lsp-handler|",
+      "override_config": "(table) Table containing the keys to\n                       override behavior of the {handler}"
+    },
+    "doc": ["Function to manage overriding defaults for LSP handlers."],
+    "return": [],
+    "seealso": []
+  },
+  "workspace_symbol": {
+    "annotations": [],
+    "signature": "workspace_symbol({query})",
+    "parameters": [["", "query"]],
+    "parameters_doc": { "query": "(string, optional)" },
+    "doc": [
+      "Lists all symbols in the current workspace in the quickfix\nwindow.",
+      "The list is filtered against {query}; if the argument is\nomitted from the call, the user is prompted to enter a string\non the command line. An empty string means no filtering is\ndone."
+    ],
+    "return": [],
+    "seealso": []
+  }
+}

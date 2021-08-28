@@ -1,0 +1,14 @@
+# https://hub.docker.com/r/archlinux/archlinux/tags
+FROM archlinux:base-devel AS generate-stage
+# https://github.com/folke/lua-dev.nvim#-how
+RUN pacman -Syu --noconfirm && pacman -S --needed git doxygen python-msgpack luajit --noconfirm && \
+    cd /root && \
+    git clone https://github.com/neovim/neovim.git --depth 1 && \
+    cd neovim && \
+    python scripts/gen_vimdoc.py && \
+    ls -al runtime/doc/*.mpack
+
+# https://stackoverflow.com/questions/49638532/docker-copy-file-to-host-from-within-dockerfile
+# https://docs.docker.com/engine/reference/commandline/build/#custom-build-outputs
+FROM scratch AS export-stage
+COPY --from=generate-stage /root/neovim/runtime/doc/*.mpack /

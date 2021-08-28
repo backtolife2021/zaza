@@ -1,0 +1,27 @@
+{
+  "name": "@zaza/types",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "backtolife <floatshuyin@gmail.com>",
+  "homepage": "https://github.com/backtolife2021/zaza#readme",
+  "license": "MIT",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backtolife2021/zaza.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/backtolife2021/zaza/issues"
+  },
+  "peerDependencies": {
+    "lua-types": "*",
+    "typescript-to-lua": "*"
+  },
+  "devDependencies": {
+    "lua-types": "^2.11.0",
+    "typescript-to-lua": "^1.2.0"
+  }
+}

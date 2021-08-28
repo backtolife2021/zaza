@@ -1,0 +1,37 @@
+{
+  "name": "@zaza/packer",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "backtolife <floatshuyin@gmail.com>",
+  "homepage": "https://github.com/backtolife2021/zaza#readme",
+  "license": "GPL3.0",
+  "main": "./dist/index",
+  "types": "./dist/index",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "dist/**/*.lua",
+    "dist/**/*.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backtolife2021/zaza.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "tstl"
+  },
+  "bugs": {
+    "url": "https://github.com/backtolife2021/zaza/issues"
+  },
+  "devDependencies": {
+    "lua-types": "^2.11.0",
+    "typescript": "^4.4.4",
+    "typescript-to-lua": "^1.1.1"
+  },
+  "peerDependencies": {
+    "@zaza/core": "*",
+    "@zaza/types": "*"
+  }
+}

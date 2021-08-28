@@ -1,0 +1,305 @@
+{
+  "config": {
+    "annotations": [],
+    "signature": "config({opts}, {namespace})",
+    "parameters": [
+      ["", "opts"],
+      ["", "namespace"]
+    ],
+    "parameters_doc": {
+      "opts": "(table|nil) When omitted or \"nil\", retrieve\n                 the current configuration. Otherwise, a\n                 configuration table with the following keys:\n                 • underline: (default true) Use underline for\n                   diagnostics. Options:\n                   • severity: Only underline diagnostics\n                     matching the given severity\n                     |diagnostic-severity|\n\n                 • virtual_text: (default true) Use virtual\n                   text for diagnostics. If multiple\n                   diagnostics are set for a namespace, one\n                   prefix per diagnostic + the last diagnostic\n                   message are shown. Options:\n                   • severity: Only show virtual text for\n                     diagnostics matching the given severity\n                     |diagnostic-severity|\n                   • source: (boolean or string) Include the\n                     diagnostic source in virtual text. Use\n                     \"if_many\" to only show sources if there\n                     is more than one diagnostic source in the\n                     buffer. Otherwise, any truthy value means\n                     to always show the diagnostic source.\n                   • spacing: (number) Amount of empty spaces\n                     inserted at the beginning of the virtual\n                     text.\n                   • prefix: (string) Prepend diagnostic\n                     message with prefix.\n                   • format: (function) A function that takes\n                     a diagnostic as input and returns a\n                     string. The return value is the text used\n                     to display the diagnostic. Example: >\n\n                       function(diagnostic)\n                         if diagnostic.severity == vim.diagnostic.severity.ERROR then\n                           return string.format(\"E: %s\", diagnostic.message)\n                         end\n                         return diagnostic.message\n                       end\n\n<\n\n                 • signs: (default true) Use signs for\n                   diagnostics. Options:\n                   • severity: Only show signs for diagnostics\n                     matching the given severity\n                     |diagnostic-severity|\n                   • priority: (number, default 10) Base\n                     priority to use for signs. When\n                     {severity_sort} is used, the priority of\n                     a sign is adjusted based on its severity.\n                     Otherwise, all signs use the same\n                     priority.\n\n                 • float: Options for floating windows. See\n                   |vim.diagnostic.open_float()|.\n                 • update_in_insert: (default false) Update\n                   diagnostics in Insert mode (if false,\n                   diagnostics are updated on InsertLeave)\n                 • severity_sort: (default false) Sort\n                   diagnostics by severity. This affects the\n                   order in which signs and virtual text are\n                   displayed. When true, higher severities are\n                   displayed before lower severities (e.g.\n                   ERROR is displayed before WARN). Options:\n                   • reverse: (boolean) Reverse sort order",
+      "namespace": "(number|nil) Update the options for the given\n                 namespace. When omitted, update the global\n                 diagnostic options."
+    },
+    "doc": [
+      "Configure diagnostic options globally or for a specific\ndiagnostic namespace.",
+      "Configuration can be specified globally, per-namespace, or\nephemerally (i.e. only for a single call to\n|vim.diagnostic.set()| or |vim.diagnostic.show()|). Ephemeral\nconfiguration has highest priority, followed by namespace\nconfiguration, and finally global configuration.",
+      "For example, if a user enables virtual text globally with >\n\n   vim.diagnostic.config({virtual_text = true})\n \n<",
+      "and a diagnostic producer sets diagnostics with >\n\n   vim.diagnostic.set(ns, 0, diagnostics, {virtual_text = false})\n \n<",
+      "then virtual text will not be enabled for those diagnostics.",
+      "\nNote:\n    Each of the configuration options below accepts one of the\n    following:\n    • `false`: Disable this feature\n    • `true`: Enable this feature, use default settings.\n    • `table`: Enable this feature with overrides. Use an\n      empty table to use default values.\n    • `function`: Function with signature (namespace, bufnr)\n      that returns any of the above.\n\n"
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "disable": {
+    "annotations": [],
+    "signature": "disable({bufnr}, {namespace})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "namespace"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number|nil) Buffer number, or 0 for current\n                 buffer. When omitted, disable diagnostics in\n                 all buffers.",
+      "namespace": "(number|nil) Only disable diagnostics for the\n                 given namespace."
+    },
+    "doc": ["Disable diagnostics in the given buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "enable": {
+    "annotations": [],
+    "signature": "enable({bufnr}, {namespace})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "namespace"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number|nil) Buffer number, or 0 for current\n                 buffer. When omitted, enable diagnostics in\n                 all buffers.",
+      "namespace": "(number|nil) Only enable diagnostics for the\n                 given namespace."
+    },
+    "doc": ["Enable diagnostics in the given buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "fromqflist": {
+    "annotations": [],
+    "signature": "fromqflist({list})",
+    "parameters": [["", "list"]],
+    "parameters_doc": {
+      "list": "(table) A list of quickfix items from\n            |getqflist()| or |getloclist()|."
+    },
+    "doc": ["Convert a list of quickfix items to a list of diagnostics."],
+    "return": ["array of diagnostics |diagnostic-structure|"],
+    "seealso": []
+  },
+  "get": {
+    "annotations": [],
+    "signature": "get({bufnr}, {opts})",
+    "parameters": [
+      ["", "bufnr"],
+      ["", "opts"]
+    ],
+    "parameters_doc": {
+      "bufnr": "(number|nil) Buffer number to get diagnostics\n             from. Use 0 for current buffer or nil for all\n             buffers.",
+      "opts": "(table|nil) A table with the following keys:\n             • namespace: (number) Limit diagnostics to the\n               given namespace.\n             • lnum: (number) Limit diagnostics to the given\n               line number.\n             • severity: See |diagnostic-severity|."
+    },
+    "doc": ["Get current diagnostics."],
+    "return": ["(table) A list of diagnostic items |diagnostic-structure|."],
+    "seealso": []
+  },
+  "get_namespace": {
+    "annotations": [],
+    "signature": "get_namespace({namespace})",
+    "parameters": [["", "namespace"]],
+    "parameters_doc": { "namespace": "(number) Diagnostic namespace" },
+    "doc": ["Get namespace metadata."],
+    "return": ["(table) Namespace metadata"],
+    "seealso": []
+  },
+  "get_namespaces": {
+    "annotations": [],
+    "signature": "get_namespaces()",
+    "parameters": [],
+    "parameters_doc": {},
+    "doc": ["Get current diagnostic namespaces."],
+    "return": ["(table) A list of active diagnostic namespaces\n    |vim.diagnostic|."],
+    "seealso": []
+  },
+  "get_next": {
+    "annotations": [],
+    "signature": "get_next({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": { "opts": "(table) See |vim.diagnostic.goto_next()|" },
+    "doc": ["Get the next diagnostic closest to the cursor position."],
+    "return": ["(table) Next diagnostic"],
+    "seealso": []
+  },
+  "get_next_pos": {
+    "annotations": [],
+    "signature": "get_next_pos({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": { "opts": "(table) See |vim.diagnostic.goto_next()|" },
+    "doc": ["Return the position of the next diagnostic in the current\nbuffer."],
+    "return": ["(table) Next diagnostic position as a (row, col) tuple."],
+    "seealso": []
+  },
+  "get_prev": {
+    "annotations": [],
+    "signature": "get_prev({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": { "opts": "(table) See |vim.diagnostic.goto_next()|" },
+    "doc": ["Get the previous diagnostic closest to the cursor position."],
+    "return": ["(table) Previous diagnostic"],
+    "seealso": []
+  },
+  "get_prev_pos": {
+    "annotations": [],
+    "signature": "get_prev_pos({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": { "opts": "(table) See |vim.diagnostic.goto_next()|" },
+    "doc": ["Return the position of the previous diagnostic in the current\nbuffer."],
+    "return": ["(table) Previous diagnostic position as a (row, col)\n    tuple."],
+    "seealso": []
+  },
+  "goto_next": {
+    "annotations": [],
+    "signature": "goto_next({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": {
+      "opts": "(table|nil) Configuration table with the following\n            keys:\n            • namespace: (number) Only consider diagnostics\n              from the given namespace.\n            • cursor_position: (cursor position) Cursor\n              position as a (row, col) tuple. See\n              |nvim_win_get_cursor()|. Defaults to the current\n              cursor position.\n            • wrap: (boolean, default true) Whether to loop\n              around file or not. Similar to 'wrapscan'.\n            • severity: See |diagnostic-severity|.\n            • float: (boolean or table, default true) If\n              \"true\", call |vim.diagnostic.open_float()| after\n              moving. If a table, pass the table as the {opts}\n              parameter to |vim.diagnostic.open_float()|.\n              Unless overridden, the float will show\n              diagnostics at the new cursor position (as if\n              \"cursor\" were passed to the \"scope\" option).\n            • win_id: (number, default 0) Window ID"
+    },
+    "doc": ["Move to the next diagnostic."],
+    "return": [],
+    "seealso": []
+  },
+  "goto_prev": {
+    "annotations": [],
+    "signature": "goto_prev({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": { "opts": "(table) See |vim.diagnostic.goto_next()|" },
+    "doc": ["Move to the previous diagnostic in the current buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "hide": {
+    "annotations": [],
+    "signature": "hide({namespace}, {bufnr})",
+    "parameters": [
+      ["", "namespace"],
+      ["", "bufnr"]
+    ],
+    "parameters_doc": {
+      "namespace": "(number|nil) Diagnostic namespace. When\n                 omitted, hide diagnostics from all\n                 namespaces.",
+      "bufnr": "(number|nil) Buffer number, or 0 for current\n                 buffer. When omitted, hide diagnostics in all\n                 buffers."
+    },
+    "doc": [
+      "Hide currently displayed diagnostics.",
+      "This only clears the decorations displayed in the buffer.\nDiagnostics can be redisplayed with |vim.diagnostic.show()|.\nTo completely remove diagnostics, use\n|vim.diagnostic.reset()|.",
+      "To hide diagnostics and prevent them from re-displaying, use\n|vim.diagnostic.disable()|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "match": {
+    "annotations": [],
+    "signature": "match({str}, {pat}, {groups}, {severity_map}, {defaults})",
+    "parameters": [
+      ["", "str"],
+      ["", "pat"],
+      ["", "groups"],
+      ["", "severity_map"],
+      ["", "defaults"]
+    ],
+    "parameters_doc": {
+      "str": "(string) String to parse diagnostics from.",
+      "pat": "(string) Lua pattern with capture groups.",
+      "groups": "(table) List of fields in a\n                    |diagnostic-structure| to associate with\n                    captures from {pat}.",
+      "severity_map": "(table) A table mapping the severity field\n                    from {groups} with an item from\n                    |vim.diagnostic.severity|.",
+      "defaults": "(table|nil) Table of default values for\n                    any fields not listed in {groups}. When\n                    omitted, numeric values default to 0 and\n                    \"severity\" defaults to ERROR."
+    },
+    "doc": [
+      "Parse a diagnostic from a string.",
+      "For example, consider a line of output from a linter: >\n\n WARNING filename:27:3: Variable 'foo' does not exist\n \n<",
+      "This can be parsed into a diagnostic |diagnostic-structure|\nwith: >\n\n local s = \"WARNING filename:27:3: Variable 'foo' does not exist\"\n local pattern = \"^(%w+) %w+:(%d+):(%d+): (.+)$\"\n local groups = {\"severity\", \"lnum\", \"col\", \"message\"}\n vim.diagnostic.match(s, pattern, groups, {WARNING = vim.diagnostic.WARN})\n \n<"
+    ],
+    "return": [
+      "diagnostic |diagnostic-structure| or `nil` if {pat} fails\n    to match {str}."
+    ],
+    "seealso": []
+  },
+  "open_float": {
+    "annotations": [],
+    "signature": "open_float({opts}, {...})",
+    "parameters": [
+      ["", "opts"],
+      ["", "..."]
+    ],
+    "parameters_doc": {
+      "opts": "(table|nil) Configuration table with the same keys\n            as |vim.lsp.util.open_floating_preview()| in\n            addition to the following:\n            • bufnr: (number) Buffer number to show\n              diagnostics from. Defaults to the current\n              buffer.\n            • namespace: (number) Limit diagnostics to the\n              given namespace\n            • scope: (string, default \"line\") Show diagnostics\n              from the whole buffer (\"buffer\"), the current\n              cursor line (\"line\"), or the current cursor\n              position (\"cursor\"). Shorthand versions are also\n              accepted (\"c\" for \"cursor\", \"l\" for \"line\", \"b\"\n              for \"buffer\").\n            • pos: (number or table) If {scope} is \"line\" or\n              \"cursor\", use this position rather than the\n              cursor position. If a number, interpreted as a\n              line number; otherwise, a (row, col) tuple.\n            • severity_sort: (default false) Sort diagnostics\n              by severity. Overrides the setting from\n              |vim.diagnostic.config()|.\n            • severity: See |diagnostic-severity|. Overrides\n              the setting from |vim.diagnostic.config()|.\n            • header: (string or table) String to use as the\n              header for the floating window. If a table, it\n              is interpreted as a [text, hl_group] tuple.\n              Overrides the setting from\n              |vim.diagnostic.config()|.\n            • source: (boolean or string) Include the\n              diagnostic source in the message. Use \"if_many\"\n              to only show sources if there is more than one\n              source of diagnostics in the buffer. Otherwise,\n              any truthy value means to always show the\n              diagnostic source. Overrides the setting from\n              |vim.diagnostic.config()|.\n            • format: (function) A function that takes a\n              diagnostic as input and returns a string. The\n              return value is the text used to display the\n              diagnostic. Overrides the setting from\n              |vim.diagnostic.config()|.\n            • prefix: (function, string, or table) Prefix each\n              diagnostic in the floating window. If a\n              function, it must have the signature\n              (diagnostic, i, total) -> (string, string),\n              where {i} is the index of the diagnostic being\n              evaluated and {total} is the total number of\n              diagnostics displayed in the window. The\n              function should return a string which is\n              prepended to each diagnostic in the window as\n              well as an (optional) highlight group which will\n              be used to highlight the prefix. If {prefix} is\n              a table, it is interpreted as a [text, hl_group]\n              tuple as in |nvim_echo()|; otherwise, if\n              {prefix} is a string, it is prepended to each\n              diagnostic in the window with no highlight.\n              Overrides the setting from\n              |vim.diagnostic.config()|."
+    },
+    "doc": ["Show diagnostics in a floating window."],
+    "return": ["tuple ({float_bufnr}, {win_id})"],
+    "seealso": []
+  },
+  "reset": {
+    "annotations": [],
+    "signature": "reset({namespace}, {bufnr})",
+    "parameters": [
+      ["", "namespace"],
+      ["", "bufnr"]
+    ],
+    "parameters_doc": {
+      "namespace": "(number|nil) Diagnostic namespace. When\n                 omitted, remove diagnostics from all\n                 namespaces.",
+      "bufnr": "(number|nil) Remove diagnostics for the given\n                 buffer. When omitted, diagnostics are removed\n                 for all buffers."
+    },
+    "doc": [
+      "Remove all diagnostics from the given namespace.",
+      "Unlike |vim.diagnostic.hide()|, this function removes all\nsaved diagnostics. They cannot be redisplayed using\n|vim.diagnostic.show()|. To simply remove diagnostic\ndecorations in a way that they can be re-displayed, use\n|vim.diagnostic.hide()|."
+    ],
+    "return": [],
+    "seealso": []
+  },
+  "set": {
+    "annotations": [],
+    "signature": "set({namespace}, {bufnr}, {diagnostics}, {opts})",
+    "parameters": [
+      ["", "namespace"],
+      ["", "bufnr"],
+      ["", "diagnostics"],
+      ["", "opts"]
+    ],
+    "parameters_doc": {
+      "namespace": "(number) The diagnostic namespace",
+      "bufnr": "(number) Buffer number",
+      "diagnostics": "(table) A list of diagnostic items\n                   |diagnostic-structure|",
+      "opts": "(table|nil) Display options to pass to\n                   |vim.diagnostic.show()|"
+    },
+    "doc": ["Set diagnostics for the given namespace and buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "setloclist": {
+    "annotations": [],
+    "signature": "setloclist({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": {
+      "opts": "(table|nil) Configuration table with the following\n            keys:\n            • namespace: (number) Only add diagnostics from\n              the given namespace.\n            • winnr: (number, default 0) Window number to set\n              location list for.\n            • open: (boolean, default true) Open the location\n              list after setting.\n            • title: (string) Title of the location list.\n              Defaults to \"Diagnostics\".\n            • severity: See |diagnostic-severity|."
+    },
+    "doc": ["Add buffer diagnostics to the location list."],
+    "return": [],
+    "seealso": []
+  },
+  "setqflist": {
+    "annotations": [],
+    "signature": "setqflist({opts})",
+    "parameters": [["", "opts"]],
+    "parameters_doc": {
+      "opts": "(table|nil) Configuration table with the following\n            keys:\n            • namespace: (number) Only add diagnostics from\n              the given namespace.\n            • open: (boolean, default true) Open quickfix list\n              after setting.\n            • title: (string) Title of quickfix list. Defaults\n              to \"Diagnostics\".\n            • severity: See |diagnostic-severity|."
+    },
+    "doc": ["Add all diagnostics to the quickfix list."],
+    "return": [],
+    "seealso": []
+  },
+  "show": {
+    "annotations": [],
+    "signature": "show({namespace}, {bufnr}, {diagnostics}, {opts})",
+    "parameters": [
+      ["", "namespace"],
+      ["", "bufnr"],
+      ["", "diagnostics"],
+      ["", "opts"]
+    ],
+    "parameters_doc": {
+      "namespace": "(number|nil) Diagnostic namespace. When\n                   omitted, show diagnostics from all\n                   namespaces.",
+      "bufnr": "(number|nil) Buffer number, or 0 for\n                   current buffer. When omitted, show\n                   diagnostics in all buffers.",
+      "diagnostics": "(table|nil) The diagnostics to display.\n                   When omitted, use the saved diagnostics for\n                   the given namespace and buffer. This can be\n                   used to display a list of diagnostics\n                   without saving them or to display only a\n                   subset of diagnostics. May not be used when\n                   {namespace} or {bufnr} is nil.",
+      "opts": "(table|nil) Display options. See\n                   |vim.diagnostic.config()|."
+    },
+    "doc": ["Display diagnostics for the given namespace and buffer."],
+    "return": [],
+    "seealso": []
+  },
+  "toqflist": {
+    "annotations": [],
+    "signature": "toqflist({diagnostics})",
+    "parameters": [["", "diagnostics"]],
+    "parameters_doc": {
+      "diagnostics": "(table) List of diagnostics\n                   |diagnostic-structure|."
+    },
+    "doc": [
+      "Convert a list of diagnostics to a list of quickfix items that\ncan be passed to |setqflist()| or |setloclist()|."
+    ],
+    "return": ["array of quickfix list items |setqflist-what|"],
+    "seealso": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "typeRoots": ["./", "./types", "./node_modules/@types"],
+    "types": ["lua-types/jit", "typescript-to-lua/language-extensions"],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": ["index.d.ts"]
+}
